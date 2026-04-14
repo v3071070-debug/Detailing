@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ceramic Pro KG — Детейлинг Студия · Бишкек</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:    #06060a;
+  --dark:    #0d0d14;
+  --panel:   #111118;
+  --steel:   #1a1a24;
+  --border:  rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.12);
+  --red:     #e8192c;
+  --red-dim: #b01020;
+  --red-glow:rgba(232,25,44,0.15);
+  --chrome:  #c8c8d4;
+  --silver:  #8a8a9a;
+  --white:   #f0f0f8;
+  --muted:   #5a5a6a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Barlow',sans-serif;
+  background:var(--void);color:var(--white);
+  overflow-x:hidden;cursor:none;
+}
+
+/* ── CURSOR ── */
+.cur{position:fixed;width:8px;height:8px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+.cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(232,25,44,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:none}
+
+/* ── NOISE ── */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  opacity:.5;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  background:rgba(6,6,10,0);
+  transition:background .5s,border-bottom .5s;
+}
+nav.scrolled{background:rgba(6,6,10,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;
+  color:var(--white);text-decoration:none;display:flex;align-items:center;gap:10px;
+}
+.nav-logo-bar{width:3px;height:22px;background:var(--red)}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--silver);text-decoration:none;transition:color .2s;
+}
+.nav-links a:hover{color:var(--red)}
+.nav-cta{
+  background:var(--red);color:var(--white);
+  padding:9px 24px;
+  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  border:none;cursor:none;text-decoration:none;
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  transition:background .2s,transform .2s;
+}
+.nav-cta:hover{background:var(--red-dim);transform:translateY(-1px)}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:none;padding:4px}
+.hbg span{width:22px;height:1.5px;background:var(--white);display:block;transition:all .3s}
+.mob-nav{
+  display:none;position:fixed;top:64px;left:0;right:0;z-index:199;
+  background:rgba(6,6,10,.98);border-bottom:1px solid var(--border);
+  padding:24px 32px 32px;flex-direction:column;gap:0;
+}
+.mob-nav.open{display:flex}
+.mob-nav a{
+  font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--silver);text-decoration:none;
+  padding:14px 0;border-bottom:1px solid var(--border);transition:color .2s;
+}
+.mob-nav a:hover{color:var(--red)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;display:flex;align-items:flex-end;
+  background:var(--void);position:relative;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 70%);
+}
+.hero-red-glow{
+  position:absolute;top:20%;right:10%;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,25,44,.12) 0%,transparent 65%);
+  pointer-events:none;animation:breathe 6s ease-in-out infinite;
+}
+.hero-red-glow2{
+  position:absolute;bottom:-100px;left:-100px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,25,44,.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+@keyframes breathe{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.7}}
+
+.hero-inner{
+  position:relative;z-index:2;width:100%;
+  padding:0 60px 80px;
+}
+.hero-pre{
+  display:flex;align-items:center;gap:14px;margin-bottom:20px;
+  animation:fadeUp 1s .2s both;
+}
+.hero-pre-line{width:48px;height:1px;background:var(--red)}
+.hero-pre span{
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:3px;text-transform:uppercase;color:var(--red);
+}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(70px,12vw,160px);
+  line-height:.88;letter-spacing:2px;
+  color:var(--white);
+  margin-bottom:0;
+  animation:fadeUp 1s .4s both;
+}
+.hero-h1 .outline{
+  -webkit-text-stroke:1px rgba(255,255,255,.2);
+  color:transparent;
+}
+.hero-h1 .red{color:var(--red)}
+.hero-sub{
+  font-family:'Barlow Condensed',sans-serif;font-size:clamp(16px,2vw,22px);
+  font-weight:500;letter-spacing:4px;text-transform:uppercase;
+  color:var(--silver);margin-top:12px;margin-bottom:40px;
+  animation:fadeUp 1s .55s both;
+}
+.hero-bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:32px;
+  animation:fadeUp 1s .7s both;
+}
+.hero-desc{
+  font-size:14px;font-weight:300;line-height:1.8;
+  color:var(--silver);max-width:400px;
+  border-left:2px solid var(--red);padding-left:20px;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-red{
+  background:var(--red);color:var(--white);
+  padding:14px 32px;
+  font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  border:none;cursor:none;text-decoration:none;
+  clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);
+  display:inline-flex;align-items:center;gap:10px;
+  transition:all .25s;
+}
+.btn-red:hover{background:var(--red-dim);transform:translateY(-2px);box-shadow:0 8px 32px rgba(232,25,44,.3)}
+.btn-steel{
+  background:transparent;color:var(--white);
+  padding:14px 32px;
+  font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  border:1px solid var(--border2);cursor:none;text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:all .25s;
+}
+.btn-steel:hover{border-color:var(--red);color:var(--red)}
+.hero-stats{display:flex;gap:48px}
+.hstat-n{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--white);line-height:1;letter-spacing:1px}
+.hstat-n span{color:var(--red)}
+.hstat-l{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+.hero-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;z-index:2;
+  animation:fadeIn 1s 1.8s both;
+}
+.hero-scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--red),transparent);animation:scrollA 2s infinite}
+@keyframes scrollA{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.hero-scroll-txt{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── TICKER ── */
+.ticker{overflow:hidden;padding:12px 0;background:var(--red);border-top:none}
+.ticker-track{display:flex;animation:ticker 18s linear infinite;white-space:nowrap}
+.ticker-item{
+  font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.85);
+  padding:0 28px;display:inline-flex;align-items:center;gap:14px;
+}
+.ticker-item::after{content:'//';font-size:10px;opacity:.5}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SERVICES ── */
+#services{padding:120px 60px;background:var(--dark)}
+.s-inner{max-width:1240px;margin:0 auto}
+.sec-label{
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:4px;text-transform:uppercase;color:var(--red);
+  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.sec-label::before{content:'';width:32px;height:1px;background:var(--red)}
+.sec-h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(48px,6vw,80px);letter-spacing:2px;
+  color:var(--white);margin-bottom:60px;line-height:1;
+}
+.sec-h2 em{font-style:normal;color:var(--red)}
+
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.srv-card{
+  background:var(--dark);padding:40px 36px;
+  position:relative;overflow:hidden;transition:background .3s;cursor:default;
+}
+.srv-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--red);transform:scaleX(0);transition:transform .4s;transform-origin:left;
+}
+.srv-card:hover{background:var(--panel)}
+.srv-card:hover::before{transform:scaleX(1)}
+.srv-num{
+  font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;
+  color:var(--muted);margin-bottom:28px;
+}
+.srv-icon{font-size:36px;margin-bottom:20px;display:block}
+.srv-name{
+  font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:12px;
+}
+.srv-desc{font-size:13px;font-weight:300;line-height:1.75;color:var(--silver);margin-bottom:24px}
+.srv-items{display:flex;flex-direction:column;gap:8px}
+.srv-item{
+  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:1px;color:var(--muted);
+  display:flex;align-items:center;gap:8px;
+}
+.srv-item::before{content:'→';color:var(--red);font-size:11px}
+
+/* ── WHY ── */
+#why{padding:120px 60px;background:var(--void);position:relative;overflow:hidden}
+#why::before{
+  content:'';position:absolute;top:-300px;right:-200px;
+  width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,25,44,.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.why-inner{max-width:1240px;margin:0 auto}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.why-left .sec-label{margin-bottom:20px}
+.why-desc{font-size:14px;font-weight:300;line-height:1.85;color:var(--silver);margin-bottom:40px}
+.why-feats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
+.wfeat{
+  background:var(--panel);border:1px solid var(--border);
+  padding:24px;transition:border-color .3s;
+}
+.wfeat:hover{border-color:var(--red)}
+.wfeat-icon{font-size:24px;margin-bottom:12px}
+.wfeat-title{
+  font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:6px;
+}
+.wfeat-desc{font-size:12px;color:var(--silver);line-height:1.6}
+.why-right{position:relative}
+.why-nums{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border)}
+.wnum{
+  background:var(--panel);padding:36px 28px;
+  position:relative;overflow:hidden;transition:background .3s;
+}
+.wnum:hover{background:var(--steel)}
+.wnum::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,var(--red),transparent);
+  transform:scaleX(0);transition:transform .4s;transform-origin:left;
+}
+.wnum:hover::after{transform:scaleX(1)}
+.wnum-n{
+  font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:2px;
+  color:var(--white);line-height:1;margin-bottom:8px;
+}
+.wnum-n span{color:var(--red)}
+.wnum-l{
+  font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:2px;text-transform:uppercase;color:var(--muted);
+}
+.wnum.accent{background:var(--red);grid-column:span 2}
+.wnum.accent .wnum-n{font-size:42px}
+.wnum.accent .wnum-l{color:rgba(255,255,255,.7)}
+
+/* ── PROCESS ── */
+#process{padding:120px 60px;background:var(--dark)}
+.proc-inner{max-width:1240px;margin:0 auto}
+.proc-steps{display:flex;flex-direction:column;gap:1px;background:var(--border);margin-top:60px}
+.pstep{
+  background:var(--dark);display:flex;gap:40px;align-items:flex-start;
+  padding:40px 48px;transition:background .3s,padding-left .3s;cursor:default;
+}
+.pstep:hover{background:var(--panel);padding-left:60px}
+.pstep-num{
+  font-family:'Bebas Neue',sans-serif;font-size:48px;color:var(--red);
+  line-height:1;min-width:60px;opacity:.6;transition:opacity .3s;
+}
+.pstep:hover .pstep-num{opacity:1}
+.pstep-title{
+  font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:10px;
+}
+.pstep-desc{font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;max-width:600px}
+.pstep-tag{
+  margin-left:auto;font-family:'Barlow Condensed',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);padding:6px 14px;border:1px solid var(--border);flex-shrink:0;align-self:center;
+}
+
+/* ── GALLERY BENTO ── */
+#gallery{padding:120px 60px;background:var(--void)}
+.gal-inner{max-width:1240px;margin:0 auto}
+.gal-bento{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  grid-template-rows:280px 280px;gap:8px;margin-top:60px;
+}
+.gcell{
+  background:var(--panel);border:1px solid var(--border);
+  display:flex;align-items:flex-end;padding:24px;
+  position:relative;overflow:hidden;transition:all .4s;cursor:default;
+}
+.gcell:hover{border-color:rgba(232,25,44,.4);transform:scale(1.01)}
+.gcell-inner-glow{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(6,6,10,.9) 100%);
+}
+.gcell-emoji{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:64px;opacity:.15}
+.gcell-label{
+  position:relative;z-index:2;
+  font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--chrome);
+}
+.gcell-sub{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.5px}
+.gcell-num{
+  position:absolute;top:20px;right:20px;
+  font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:var(--muted);
+}
+.gcell-1{grid-column:span 2;background:linear-gradient(135deg,var(--steel),var(--panel))}
+.gcell-2{background:linear-gradient(135deg,#1a0a0a,var(--panel))}
+.gcell-3{background:linear-gradient(135deg,var(--panel),var(--steel))}
+.gcell-4{background:linear-gradient(135deg,#0a0a1a,var(--panel))}
+.gcell-5{grid-column:span 2;background:linear-gradient(135deg,var(--steel),#1a0a0a)}
+.gcell-accent{background:var(--red)!important;border-color:var(--red)!important}
+.gcell-accent .gcell-label{color:var(--white)}
+.gcell-accent .gcell-sub{color:rgba(255,255,255,.6)}
+
+/* ── REVIEWS ── */
+#reviews{padding:120px 60px;background:var(--dark)}
+.rev-inner{max-width:1240px;margin:0 auto}
+.rev-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px}
+.rev-rating{text-align:right}
+.rev-big{font-family:'Bebas Neue',sans-serif;font-size:80px;color:var(--white);line-height:1;letter-spacing:2px}
+.rev-big span{color:var(--red)}
+.rev-stars{color:var(--red);font-size:18px;letter-spacing:2px}
+.rev-count{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.rcrd{
+  background:var(--dark);padding:32px;
+  transition:background .3s;cursor:default;
+}
+.rcrd:hover{background:var(--panel)}
+.rcrd-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}
+.rcrd-av{
+  width:42px;height:42px;background:var(--steel);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--red);
+  clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+}
+.rcrd-stars{color:var(--red);font-size:12px;letter-spacing:2px}
+.rcrd-text{font-size:13px;font-weight:300;color:var(--chrome);line-height:1.75;margin-bottom:20px;font-style:italic}
+.rcrd-foot{padding-top:16px;border-top:1px solid var(--border)}
+.rcrd-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--white)}
+.rcrd-src{font-size:10px;color:var(--muted);letter-spacing:1px;margin-top:2px}
+
+/* ── LOCATIONS ── */
+#locations{padding:120px 60px;background:var(--void)}
+.loc-inner{max-width:1240px;margin:0 auto}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);margin-top:60px}
+.lcrd{
+  background:var(--void);padding:48px;
+  transition:background .3s;cursor:default;position:relative;overflow:hidden;
+}
+.lcrd::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--red);transform:scaleY(0);transition:transform .4s;transform-origin:bottom;
+}
+.lcrd:hover{background:var(--panel)}
+.lcrd:hover::before{transform:scaleY(1)}
+.lcrd-num{
+  font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:3px;
+  color:var(--red);margin-bottom:20px;
+}
+.lcrd-name{
+  font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:12px;
+}
+.lcrd-addr{font-size:14px;font-weight:300;color:var(--silver);margin-bottom:8px;line-height:1.5}
+.lcrd-metro{font-size:12px;color:var(--muted);margin-bottom:24px}
+.lcrd-info{display:flex;flex-direction:column;gap:10px}
+.lcrd-info-row{display:flex;gap:12px;align-items:center}
+.lcrd-info-icon{font-size:14px;width:20px;flex-shrink:0}
+.lcrd-info-text{font-size:13px;color:var(--silver)}
+.lcrd-info-text a{color:var(--red);text-decoration:none}
+.lcrd-info-text a:hover{text-decoration:underline}
+
+/* ── BOOKING ── */
+#booking{padding:120px 60px;background:var(--dark)}
+.book-inner{max-width:1000px;margin:0 auto}
+.book-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.book-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(42px,5vw,64px);letter-spacing:2px;
+  color:var(--white);margin-bottom:16px;line-height:1;
+}
+.book-title em{color:var(--red);font-style:normal}
+.book-desc{font-size:14px;font-weight:300;color:var(--silver);line-height:1.8;margin-bottom:32px}
+.book-contacts{display:flex;flex-direction:column;gap:0}
+.bcon{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid var(--border)}
+.bcon-ico{
+  width:36px;height:36px;background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;flex-shrink:0;
+  clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+}
+.bcon-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.bcon-val{font-size:13px;color:var(--chrome)}
+.bcon-val a{color:var(--red);text-decoration:none}
+.bcon-val a:hover{text-decoration:underline}
+
+.bform{background:var(--panel);border:1px solid var(--border);padding:40px}
+.bform-title{
+  font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;color:var(--white);margin-bottom:4px;
+}
+.bform-sub{font-size:12px;color:var(--muted);margin-bottom:28px;letter-spacing:.3px}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.flbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
+.finp,.fsel,.ftxt{
+  background:var(--steel);border:1px solid var(--border);
+  color:var(--white);padding:12px 16px;
+  font-family:'Barlow',sans-serif;font-size:13px;outline:none;
+  transition:border-color .2s;-webkit-appearance:none;
+}
+.fsel option{background:var(--panel)}
+.finp:focus,.fsel:focus,.ftxt:focus{border-color:var(--red)}
+.finp::placeholder,.ftxt::placeholder{color:var(--muted)}
+.ftxt{min-height:90px;resize:vertical}
+.fsub{
+  width:100%;background:var(--red);color:var(--white);
+  padding:14px;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:3px;text-transform:uppercase;
+  border:none;cursor:none;margin-top:6px;
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  transition:all .2s;
+}
+.fsub:hover{background:var(--red-dim);transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,25,44,.3)}
+
+/* ── FOOTER ── */
+footer{background:var(--void);border-top:1px solid var(--border);padding:60px 60px 36px}
+.foot-inner{max-width:1240px;margin:0 auto}
+.foot-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;
+  padding-bottom:48px;border-bottom:1px solid var(--border);margin-bottom:32px;
+}
+.foot-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.foot-logo-bar{width:3px;height:24px;background:var(--red)}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;color:var(--white)}
+.foot-slogan{
+  font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;
+}
+.foot-desc{font-size:13px;font-weight:300;color:var(--silver);line-height:1.7;margin-bottom:24px;max-width:260px}
+.foot-socials{display:flex;gap:8px}
+.fsoc{
+  width:36px;height:36px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--silver);text-decoration:none;
+  transition:all .2s;
+  clip-path:polygon(4px 0,100% 0,100% calc(100% - 4px),calc(100% - 4px) 100%,0 100%,0 4px);
+}
+.fsoc:hover{background:var(--red);border-color:var(--red);color:var(--white)}
+.foot-col-h{
+  font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;
+}
+.foot-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.foot-links a{font-size:13px;font-weight:300;color:var(--silver);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--red)}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.foot-copy{font-size:11px;color:var(--muted);letter-spacing:.5px}
+.foot-badge{
+  display:flex;align-items:center;gap:8px;
+  border:1px solid rgba(232,25,44,.3);padding:6px 16px;
+}
+.foot-badge span{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--red)}
+
+/* ── FLOAT ── */
+.float{
+  position:fixed;bottom:28px;right:28px;z-index:100;
+  background:var(--red);color:var(--white);
+  padding:12px 22px;
+  font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  box-shadow:0 8px 32px rgba(232,25,44,.4);
+  text-decoration:none;display:flex;align-items:center;gap:8px;
+  clip-path:polygon(8px 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%,0 8px);
+  transition:all .2s;animation:floatAnim 3s ease-in-out infinite;
+}
+.float:hover{background:var(--red-dim);transform:translateY(-3px)}
+@keyframes floatAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
+
+/* ── MOBILE ── */
+@media(max-width:960px){
+  nav{padding:0 24px}
+  .nav-links,.nav-cta{display:none}
+  .hbg{display:flex}
+  body{cursor:auto}
+  .cur,.cur-ring{display:none}
+  .hero-inner{padding:0 28px 60px}
+  .hero-h1{font-size:clamp(60px,16vw,100px)}
+  .hero-bottom{flex-direction:column;align-items:flex-start}
+  .hero-stats{gap:32px}
+  #services,#why,#process,#gallery,#reviews,#locations,#booking{padding:72px 24px}
+  .srv-grid{grid-template-columns:1fr;gap:0}
+  .why-grid{grid-template-columns:1fr;gap:48px}
+  .why-feats{grid-template-columns:1fr 1fr}
+  .gal-bento{grid-template-columns:1fr;grid-template-rows:auto}
+  .gcell-1,.gcell-5{grid-column:span 1}
+  .gcell{min-height:160px}
+  .rev-header{flex-direction:column;align-items:flex-start;gap:16px}
+  .rev-grid{grid-template-columns:1fr;gap:0}
+  .loc-grid{grid-template-columns:1fr;gap:0}
+  .book-grid{grid-template-columns:1fr;gap:48px}
+  .foot-top{grid-template-columns:1fr;gap:32px}
+  footer{padding:48px 24px 28px}
+  .why-nums{grid-template-columns:1fr 1fr}
+  .proc-steps .pstep{flex-direction:column;gap:12px;padding:28px 24px}
+  .pstep:hover{padding-left:24px}
+  .pstep-tag{margin-left:0;align-self:flex-start}
+}
+@media(max-width:600px){
+  .hero-btns{flex-direction:column}
+  .btn-red,.btn-steel{width:100%;justify-content:center}
+  .fr{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .why-feats{grid-template-columns:1fr}
+  .why-nums{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-bar"></div>
+    CERAMIC PRO KG
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Услуги</a></li>
+    <li><a href="#why">О нас</a></li>
+    <li><a href="#process">Процесс</a></li>
+    <li><a href="#reviews">Отзывы</a></li>
+    <li><a href="#locations">Адреса</a></li>
+  </ul>
+  <a href="#booking" class="nav-cta">Записаться</a>
+  <div class="hbg" id="hbg"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-nav" id="mobNav">
+  <a href="#services">Услуги</a>
+  <a href="#why">О нас</a>
+  <a href="#process">Процесс работы</a>
+  <a href="#reviews">Отзывы</a>
+  <a href="#locations">Адреса</a>
+  <a href="#booking" style="color:var(--red)">Записаться →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-red-glow"></div>
+  <div class="hero-red-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-pre">
+      <div class="hero-pre-line"></div>
+      <span>Детейлинг Студия · Бишкек · Кыргызстан</span>
+    </div>
+    <h1 class="hero-h1">
+      CERAMIC<br>
+      <span class="outline">PRO</span><br>
+      <span class="red">KG</span>
+    </h1>
+    <p class="hero-sub">Защита. Полировка. Детейлинг.</p>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Профессиональная детейлинг студия в Бишкеке. Керамические покрытия, полировка кузова, химчистка салона, бронеплёнка. Два центра в городе.
+      </p>
+      <div class="hero-btns">
+        <a href="#booking" class="btn-red">Записаться →</a>
+        <a href="#services" class="btn-steel">Наши услуги</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="hstat-n">4.5<span>★</span></div>
+          <div class="hstat-l">Рейтинг 2ГИС</div>
+        </div>
+        <div>
+          <div class="hstat-n">2<span>+</span></div>
+          <div class="hstat-l">Центра в городе</div>
+        </div>
+        <div>
+          <div class="hstat-n">10<span>:00</span></div>
+          <div class="hstat-l">Открываемся · до 20:00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <div class="hero-scroll-txt">Scroll</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <span class="ticker-item">Керамическое покрытие</span>
+    <span class="ticker-item">Бронеплёнка PPF</span>
+    <span class="ticker-item">Полировка кузова</span>
+    <span class="ticker-item">Химчистка салона</span>
+    <span class="ticker-item">Антигравийная пленка</span>
+    <span class="ticker-item">Тонировка</span>
+    <span class="ticker-item">Шумоизоляция</span>
+    <span class="ticker-item">Детейлинг</span>
+    <span class="ticker-item">Ceramic Pro KG</span>
+    <span class="ticker-item">Керамическое покрытие</span>
+    <span class="ticker-item">Бронеплёнка PPF</span>
+    <span class="ticker-item">Полировка кузова</span>
+    <span class="ticker-item">Химчистка салона</span>
+    <span class="ticker-item">Антигравийная пленка</span>
+    <span class="ticker-item">Тонировка</span>
+    <span class="ticker-item">Шумоизоляция</span>
+    <span class="ticker-item">Детейлинг</span>
+    <span class="ticker-item">Ceramic Pro KG</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="s-inner">
+    <div class="reveal">
+      <div class="sec-label">Услуги</div>
+      <h2 class="sec-h2">ЧТО МЫ<br><em>ДЕЛАЕМ</em></h2>
+    </div>
+    <div class="srv-grid reveal">
+      <div class="srv-card">
+        <div class="srv-num">— 01</div>
+        <span class="srv-icon">🛡️</span>
+        <div class="srv-name">Керамическое покрытие</div>
+        <p class="srv-desc">Защитное нанокерамическое покрытие кузова — гидрофобность, защита от царапин и УФ-излучения. Срок службы до 5 лет.</p>
+        <div class="srv-items">
+          <div class="srv-item">Ceramic Pro 9H</div>
+          <div class="srv-item">Ceramic Pro Light</div>
+          <div class="srv-item">Ceramic Pro Rain (стёкла)</div>
+          <div class="srv-item">Ceramic Pro Leather (кожа)</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">— 02</div>
+        <span class="srv-icon">🎯</span>
+        <div class="srv-name">Бронеплёнка PPF</div>
+        <p class="srv-desc">Антигравийная полиуретановая плёнка — полная защита лакокрасочного покрытия от сколов, царапин и химического воздействия.</p>
+        <div class="srv-items">
+          <div class="srv-item">Частичная оклейка</div>
+          <div class="srv-item">Полная оклейка кузова</div>
+          <div class="srv-item">Оклейка бамперов и порогов</div>
+          <div class="srv-item">Глянец / матовая пленка</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">— 03</div>
+        <span class="srv-icon">✨</span>
+        <div class="srv-name">Полировка кузова</div>
+        <p class="srv-desc">Восстановление и защита ЛКП — устранение царапин, разводов, голограмм. Двухфазная и трёхфазная полировка.</p>
+        <div class="srv-items">
+          <div class="srv-item">2-х фазная мойка + очистка ЛКП</div>
+          <div class="srv-item">Полировка фар и стёкол</div>
+          <div class="srv-item">Подкапывание сколов</div>
+          <div class="srv-item">Глиняная обработка</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">— 04</div>
+        <span class="srv-icon">🧹</span>
+        <div class="srv-name">Детейлинг салона</div>
+        <p class="srv-desc">Глубокая химчистка и восстановление интерьера. Чистка кожи, обработка пластика, дезинфекция системы вентиляции.</p>
+        <div class="srv-items">
+          <div class="srv-item">Химчистка обивки и ковров</div>
+          <div class="srv-item">Чистка и защита кожи</div>
+          <div class="srv-item">Полировка декоративных вставок</div>
+          <div class="srv-item">Дезинфекция и сухой туман</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">— 05</div>
+        <span class="srv-icon">🎨</span>
+        <div class="srv-name">Тонировка и плёнки</div>
+        <p class="srv-desc">Тонировка стёкол, виниловая оклейка кузова, антихром, смена цвета авто. Работа с ксеноновыми и LED-системами.</p>
+        <div class="srv-items">
+          <div class="srv-item">Атермальная тонировка</div>
+          <div class="srv-item">Виниловая оклейка</div>
+          <div class="srv-item">Антихром</div>
+          <div class="srv-item">Смена цвета кузова</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">— 06</div>
+        <span class="srv-icon">🔧</span>
+        <div class="srv-name">Доп. услуги</div>
+        <p class="srv-desc">Шумоизоляция, покраска пластика, чистка и консервация арок и ходовой, мойка двигателя, антидождь на стёкла.</p>
+        <div class="srv-items">
+          <div class="srv-item">Шумоизоляция салона</div>
+          <div class="srv-item">Чистка и консервация мотора</div>
+          <div class="srv-item">Обработка арок и ходовой</div>
+          <div class="srv-item">Покрытие антидождь</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="why-inner">
+    <div class="why-grid">
+      <div class="reveal">
+        <div class="sec-label">Почему мы</div>
+        <h2 class="sec-h2">CERAMIC<br>PRO<br><em>СТАНДАРТ</em></h2>
+        <p class="why-desc">Ceramic Pro KG — официальный партнёр международного бренда Ceramic Pro. Мы используем только сертифицированные материалы и профессиональное оборудование. Каждый автомобиль — как свой.</p>
+        <div class="why-feats">
+          <div class="wfeat">
+            <div class="wfeat-icon">🏆</div>
+            <div class="wfeat-title">Сертифицированные мастера</div>
+            <p class="wfeat-desc">Прошли обучение и сертификацию по стандартам Ceramic Pro</p>
+          </div>
+          <div class="wfeat">
+            <div class="wfeat-icon">⚡</div>
+            <div class="wfeat-title">Профессиональные материалы</div>
+            <p class="wfeat-desc">Только оригинальные покрытия Ceramic Pro и проверенные расходники</p>
+          </div>
+          <div class="wfeat">
+            <div class="wfeat-icon">📸</div>
+            <div class="wfeat-title">Фото / видео отчёт</div>
+            <p class="wfeat-desc">Документируем весь процесс работы и предоставляем клиенту</p>
+          </div>
+          <div class="wfeat">
+            <div class="wfeat-icon">🛡️</div>
+            <div class="wfeat-title">Гарантия на работы</div>
+            <p class="wfeat-desc">Предоставляем гарантию на все выполненные работы и покрытия</p>
+          </div>
+        </div>
+      </div>
+      <div class="reveal rd1">
+        <div class="why-nums">
+          <div class="wnum">
+            <div class="wnum-n">2<span>+</span></div>
+            <div class="wnum-l">Центра в Бишкеке</div>
+          </div>
+          <div class="wnum">
+            <div class="wnum-n">4.5<span>★</span></div>
+            <div class="wnum-l">Рейтинг 2ГИС</div>
+          </div>
+          <div class="wnum">
+            <div class="wnum-n">85<span>+</span></div>
+            <div class="wnum-l">Оценок клиентов</div>
+          </div>
+          <div class="wnum">
+            <div class="wnum-n">10<span>h</span></div>
+            <div class="wnum-l">Работаем ежедневно</div>
+          </div>
+          <div class="wnum accent">
+            <div>
+              <div class="wnum-n">CERAMIC PRO</div>
+              <div class="wnum-l">Официальный партнёр международного бренда в Кыргызстане</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="proc-inner">
+    <div class="reveal">
+      <div class="sec-label">Как мы работаем</div>
+      <h2 class="sec-h2">ПРОЦЕСС<br><em>РАБОТЫ</em></h2>
+    </div>
+    <div class="proc-steps reveal">
+      <div class="pstep">
+        <div class="pstep-num">01</div>
+        <div>
+          <div class="pstep-title">Запись и консультация</div>
+          <p class="pstep-desc">Свяжитесь с нами через WhatsApp, Instagram или по телефону. Обсуждаем задачу, подбираем услугу и назначаем удобное время.</p>
+        </div>
+        <div class="pstep-tag">Бесплатно</div>
+      </div>
+      <div class="pstep">
+        <div class="pstep-num">02</div>
+        <div>
+          <div class="pstep-title">Приём и диагностика</div>
+          <p class="pstep-desc">Принимаем автомобиль, проводим осмотр кузова и салона. Документируем состояние до начала работ — фото и видео отчёт.</p>
+        </div>
+        <div class="pstep-tag">До 30 мин</div>
+      </div>
+      <div class="pstep">
+        <div class="pstep-num">03</div>
+        <div>
+          <div class="pstep-title">Подготовка и деконтаминация</div>
+          <p class="pstep-desc">Двухфазная мойка, обезжиривание, глиняная обработка, очистка ЛКП. Тщательная подготовка — основа качественного результата.</p>
+        </div>
+        <div class="pstep-tag">1-2 часа</div>
+      </div>
+      <div class="pstep">
+        <div class="pstep-num">04</div>
+        <div>
+          <div class="pstep-title">Нанесение покрытия / работы</div>
+          <p class="pstep-desc">Профессиональное нанесение керамики, полировка, оклейка плёнкой или химчистка — в зависимости от выбранной услуги.</p>
+        </div>
+        <div class="pstep-tag">1-3 дня</div>
+      </div>
+      <div class="pstep">
+        <div class="pstep-num">05</div>
+        <div>
+          <div class="pstep-title">Финальная инспекция и выдача</div>
+          <p class="pstep-desc">Финальная проверка качества при хорошем освещении. Рассказываем об уходе за покрытием. Выдаём автомобиль с гарантией.</p>
+        </div>
+        <div class="pstep-tag">С гарантией</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gal-inner">
+    <div class="reveal">
+      <div class="sec-label">Работы</div>
+      <h2 class="sec-h2">НАШИ<br><em>ПРОЕКТЫ</em></h2>
+    </div>
+    <div class="gal-bento reveal">
+      <div class="gcell gcell-1">
+        <div class="gcell-inner-glow"></div>
+        <div class="gcell-emoji">🚗</div>
+        <div class="gcell-num">01</div>
+        <div>
+          <div class="gcell-label">Керамика + полировка</div>
+          <div class="gcell-sub">Полный детейлинг · Sedan</div>
+        </div>
+      </div>
+      <div class="gcell gcell-2">
+        <div class="gcell-inner-glow"></div>
+        <div class="gcell-emoji">🛡️</div>
+        <div class="gcell-num">02</div>
+        <div>
+          <div class="gcell-label">PPF бронеплёнка</div>
+          <div class="gcell-sub">Антигравийная защита</div>
+        </div>
+      </div>
+      <div class="gcell gcell-3">
+        <div class="gcell-inner-glow"></div>
+        <div class="gcell-emoji">✨</div>
+        <div class="gcell-num">03</div>
+        <div>
+          <div class="gcell-label">Полировка кузова</div>
+          <div class="gcell-sub">3-фазная · SUV</div>
+        </div>
+      </div>
+      <div class="gcell gcell-4 gcell-accent">
+        <div class="gcell-inner-glow"></div>
+        <div class="gcell-emoji" style="opacity:.2">🚗</div>
+        <div class="gcell-num" style="color:rgba(255,255,255,.4)">04</div>
+        <div>
+          <div class="gcell-label">Смотри работы в Instagram</div>
+          <div class="gcell-sub">@ceramicprokg → все проекты</div>
+        </div>
+      </div>
+      <div class="gcell gcell-5">
+        <div class="gcell-inner-glow"></div>
+        <div class="gcell-emoji">🧹</div>
+        <div class="gcell-num">05</div>
+        <div>
+          <div class="gcell-label">Детейлинг салона</div>
+          <div class="gcell-sub">Химчистка · Кожа · Дезинфекция</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="rev-inner">
+    <div class="rev-header reveal">
+      <div>
+        <div class="sec-label">Отзывы клиентов</div>
+        <h2 class="sec-h2">ЧТО<br><em>ГОВОРЯТ</em></h2>
+      </div>
+      <div class="rev-rating">
+        <div class="rev-big">4<span>.</span>5</div>
+        <div class="rev-stars">★★★★★</div>
+        <div class="rev-count">85+ оценок · 2ГИС · Бишкек</div>
+      </div>
+    </div>
+    <div class="rev-grid reveal">
+      <div class="rcrd">
+        <div class="rcrd-top">
+          <div class="rcrd-av">А</div>
+          <div class="rcrd-stars">★★★★★</div>
+        </div>
+        <p class="rcrd-text">Отличная студия! Сделали керамику на мою машину — результат превзошёл ожидания. Капли воды скатываются идеально, кузов блестит как зеркало. Профессионалы своего дела.</p>
+        <div class="rcrd-foot">
+          <div class="rcrd-name">Азамат К.</div>
+          <div class="rcrd-src">2ГИС · Бишкек</div>
+        </div>
+      </div>
+      <div class="rcrd">
+        <div class="rcrd-top">
+          <div class="rcrd-av">Д</div>
+          <div class="rcrd-stars">★★★★★</div>
+        </div>
+        <p class="rcrd-text">Делал полировку и химчистку салона. Ребята работают аккуратно, всё объяснили, дали рекомендации по уходу. Машина выглядит как новая. Рекомендую всем!</p>
+        <div class="rcrd-foot">
+          <div class="rcrd-name">Дмитрий В.</div>
+          <div class="rcrd-src">2ГИС · Бишкек</div>
+        </div>
+      </div>
+      <div class="rcrd">
+        <div class="rcrd-top">
+          <div class="rcrd-av">Н</div>
+          <div class="rcrd-stars">★★★★★</div>
+        </div>
+        <p class="rcrd-text">Оклеили бронеплёнкой капот и пороги. Работа выполнена очень качественно, пузырей нет, плёнка лежит идеально. Цена адекватная для такого уровня.</p>
+        <div class="rcrd-foot">
+          <div class="rcrd-name">Нурлан М.</div>
+          <div class="rcrd-src">2ГИС · Бишкек</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section id="locations">
+  <div class="loc-inner">
+    <div class="reveal">
+      <div class="sec-label">Адреса</div>
+      <h2 class="sec-h2">2 ЦЕНТРА<br><em>В ГОРОДЕ</em></h2>
+    </div>
+    <div class="loc-grid reveal">
+      <div class="lcrd">
+        <div class="lcrd-num">— ЦЕНТР 01</div>
+        <div class="lcrd-name">Ceramic Pro · Ауэзова</div>
+        <div class="lcrd-addr">ул. Ауэзова, 1/5<br>Цокольный этаж</div>
+        <div class="lcrd-metro">Октябрьский район, Бишкек</div>
+        <div class="lcrd-info">
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">🕐</span>
+            <span class="lcrd-info-text">Пн–Сб: 10:00 — 20:00</span>
+          </div>
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">📞</span>
+            <span class="lcrd-info-text"><a href="tel:+996990880110">+996 990 880 110</a></span>
+          </div>
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">📱</span>
+            <span class="lcrd-info-text"><a href="tel:+996508088011">+996 508 088 011</a></span>
+          </div>
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">💬</span>
+            <span class="lcrd-info-text"><a href="https://wa.me/996508088011" target="_blank">WhatsApp →</a></span>
+          </div>
+        </div>
+      </div>
+      <div class="lcrd">
+        <div class="lcrd-num">— ЦЕНТР 02</div>
+        <div class="lcrd-name">Ceramic Pro · Токомбаева</div>
+        <div class="lcrd-addr">ул. Токомбаева, 17/2</div>
+        <div class="lcrd-metro">Бишкек</div>
+        <div class="lcrd-info">
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">🕐</span>
+            <span class="lcrd-info-text">Пн–Сб: 10:00 — 20:00</span>
+          </div>
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">📞</span>
+            <span class="lcrd-info-text"><a href="tel:+996990880110">+996 990 880 110</a></span>
+          </div>
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">📱</span>
+            <span class="lcrd-info-text"><a href="tel:+996508088011">+996 508 088 011</a></span>
+          </div>
+          <div class="lcrd-info-row">
+            <span class="lcrd-info-icon">📸</span>
+            <span class="lcrd-info-text"><a href="https://instagram.com/ceramicprokg" target="_blank">@ceramicprokg →</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="booking">
+  <div class="book-inner">
+    <div class="book-grid">
+      <div class="reveal">
+        <div class="sec-label">Запись</div>
+        <h2 class="book-title">ЗАПИШИСЬ<br><em>СЕЙЧАС</em></h2>
+        <p class="book-desc">Оставь заявку — мы свяжемся в течение часа, обсудим задачу и назначим удобное время.</p>
+        <div class="book-contacts">
+          <div class="bcon">
+            <div class="bcon-ico">📞</div>
+            <div>
+              <div class="bcon-lbl">Телефон</div>
+              <div class="bcon-val"><a href="tel:+996990880110">+996 990 880 110</a></div>
+            </div>
+          </div>
+          <div class="bcon">
+            <div class="bcon-ico">📱</div>
+            <div>
+              <div class="bcon-lbl">Второй номер</div>
+              <div class="bcon-val"><a href="tel:+996508088011">+996 508 088 011</a></div>
+            </div>
+          </div>
+          <div class="bcon">
+            <div class="bcon-ico">💬</div>
+            <div>
+              <div class="bcon-lbl">WhatsApp</div>
+              <div class="bcon-val"><a href="https://wa.me/996508088011" target="_blank">Написать в WhatsApp</a></div>
+            </div>
+          </div>
+          <div class="bcon">
+            <div class="bcon-ico">📸</div>
+            <div>
+              <div class="bcon-lbl">Instagram</div>
+              <div class="bcon-val"><a href="https://instagram.com/ceramicprokg" target="_blank">@ceramicprokg</a></div>
+            </div>
+          </div>
+          <div class="bcon">
+            <div class="bcon-ico">👥</div>
+            <div>
+              <div class="bcon-lbl">Facebook</div>
+              <div class="bcon-val"><a href="https://facebook.com/ceramicprokg" target="_blank">@ceramicprokg</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bform reveal rd1">
+        <div class="bform-title">Оставить заявку</div>
+        <div class="bform-sub">Ответим в течение 1 часа</div>
+        <form onsubmit="hSub(event)">
+          <div class="fr">
+            <div class="fg"><label class="flbl">Имя</label><input type="text" class="finp" placeholder="Азамат"></div>
+            <div class="fg"><label class="flbl">Телефон</label><input type="tel" class="finp" placeholder="0900 000 000"></div>
+          </div>
+          <div class="fg">
+            <label class="flbl">Услуга</label>
+            <select class="fsel">
+              <option value="" disabled selected>Выберите услугу</option>
+              <option>Керамическое покрытие</option>
+              <option>Бронеплёнка PPF</option>
+              <option>Полировка кузова</option>
+              <option>Химчистка салона</option>
+              <option>Тонировка</option>
+              <option>Виниловая оклейка</option>
+              <option>Шумоизоляция</option>
+              <option>Комплексный детейлинг</option>
+              <option>Другое / Консультация</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="flbl">Центр</label>
+            <select class="fsel">
+              <option>ул. Ауэзова, 1/5</option>
+              <option>ул. Токомбаева, 17/2</option>
+              <option>Любой</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="flbl">Марка и модель авто</label>
+            <input type="text" class="finp" placeholder="BMW X5, 2021">
+          </div>
+          <div class="fg"><label class="flbl">Комментарий</label><textarea class="ftxt" placeholder="Опишите задачу, пожелания..."></textarea></div>
+          <button type="submit" class="fsub">Отправить заявку →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo-wrap">
+          <div class="foot-logo-bar"></div>
+          <div class="foot-logo">CERAMIC PRO KG</div>
+        </div>
+        <div class="foot-slogan">Детейлинг студия · Бишкек</div>
+        <p class="foot-desc">Официальный партнёр Ceramic Pro в Кыргызстане. Два центра в Бишкеке. Профессиональная защита вашего автомобиля.</p>
+        <div class="foot-socials">
+          <a href="https://instagram.com/ceramicprokg" class="fsoc" target="_blank">📷</a>
+          <a href="https://facebook.com/ceramicprokg" class="fsoc" target="_blank">👥</a>
+          <a href="https://wa.me/996508088011" class="fsoc" target="_blank">💬</a>
+          <a href="tel:+996990880110" class="fsoc">📞</a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-col-h">Услуги</div>
+        <ul class="foot-links">
+          <li><a href="#services">Керамическое покрытие</a></li>
+          <li><a href="#services">Бронеплёнка PPF</a></li>
+          <li><a href="#services">Полировка кузова</a></li>
+          <li><a href="#services">Химчистка салона</a></li>
+          <li><a href="#services">Тонировка и плёнки</a></li>
+          <li><a href="#services">Шумоизоляция</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-h">Студия</div>
+        <ul class="foot-links">
+          <li><a href="#why">О нас</a></li>
+          <li><a href="#process">Процесс работы</a></li>
+          <li><a href="#gallery">Проекты</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#locations">Адреса</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-h">Контакты</div>
+        <ul class="foot-links">
+          <li><a href="tel:+996990880110">+996 990 880 110</a></li>
+          <li><a href="tel:+996508088011">+996 508 088 011</a></li>
+          <li><a href="https://wa.me/996508088011" target="_blank">WhatsApp</a></li>
+          <li><a href="https://instagram.com/ceramicprokg" target="_blank">@ceramicprokg</a></li>
+          <li><a href="https://facebook.com/ceramicprokg" target="_blank">Facebook</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div class="foot-copy">© 2025 Ceramic Pro KG · Детейлинг студия · Бишкек, Кыргызстан</div>
+      <div class="foot-badge">
+        <span>🛡️ Официальный партнёр Ceramic Pro</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a href="#booking" class="float">🛡️ Записаться</a>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button,.srv-card,.pstep,.rcrd,.lcrd').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='50px';ring.style.height='50px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='32px';ring.style.height='32px'});
+});
+
+// Nav
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>50)});
+
+// Hamburger
+document.getElementById('hbg').addEventListener('click',()=>document.getElementById('mobNav').classList.toggle('open'));
+document.querySelectorAll('.mob-nav a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobNav').classList.remove('open')));
+
+// Reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Form
+function hSub(e){
+  e.preventDefault();
+  const b=e.target.querySelector('.fsub');
+  b.textContent='✓ ЗАЯВКА ПРИНЯТА — СВЯЖЕМСЯ СКОРО!';
+  b.style.background='#1a6a2a';
+  setTimeout(()=>{b.textContent='Отправить заявку →';b.style.background=''},4000);
+}
+</script>
+</body>
+</html>
